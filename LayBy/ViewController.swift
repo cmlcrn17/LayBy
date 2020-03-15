@@ -10,11 +10,26 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    @IBOutlet weak var lblTotalMoney: UILabel!
+    @IBOutlet weak var txtMoneyAmount: UITextField!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
+        lblTotalMoney.text = "0"
+        let totalMoneyVariable = UserDefaults.standard.object(forKey: "totalMoney")
+        
+        if let newTotalMoneyVariable = totalMoneyVariable as? String{
+            lblTotalMoney.text = newTotalMoneyVariable
+        }
     }
 
-
+    @IBAction func clickAddMoneyBox(_ sender: Any) {
+        if let totalMoney = Int(txtMoneyAmount.text!){
+            lblTotalMoney.text = String(Int(lblTotalMoney.text!)! + Int(txtMoneyAmount.text!)!)
+            UserDefaults.standard.set(lblTotalMoney.text!, forKey: "totalMoney")
+        }
+    }
+    
 }
 
